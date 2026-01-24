@@ -7,7 +7,7 @@ export const about = {
   name: 'Matheus Silva Martins Mota',
   scientificName: 'Mota, M. S. M.',
   imgProfile: {
-    url: 'https://github.com/Matheus1714.png',
+    url: '/profile.jpeg',
     alt: 'profile image',
   },
   description:

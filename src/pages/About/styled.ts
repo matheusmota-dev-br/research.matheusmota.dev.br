@@ -30,16 +30,28 @@ export const ProfileAuthor = styled.div`
     img{
         border-radius: 9999px;
         height: 15rem;
-
+        width: 15rem;
+        object-fit: cover;
         margin-bottom: 1rem;
+        border: 4px solid ${(props) => props.theme.border};
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+        &:hover {
+            transform: scale(1.05);
+            box-shadow: 0 12px 32px ${(props) => props.theme.primary}30;
+            border-color: ${(props) => props.theme.primary};
+        }
     }
     p{
         font-size: 1rem;
         font-weight: 800;
+        color: ${(props) => props.theme.text};
 
         &:nth-child(3){
-            color: ${(props) => props.theme.blue};
+            color: ${(props) => props.theme.primary};
             margin-top: 0.25rem;
+            font-weight: 600;
         }
     }
 `;

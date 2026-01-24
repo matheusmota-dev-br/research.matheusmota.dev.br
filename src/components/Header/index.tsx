@@ -14,6 +14,7 @@ import { useTheme } from '../../contexts/ThemeContext';
 import BarIcon from '../../assets/bars.svg';
 import CloseIcon from '../../assets/close.svg';
 import { Logo } from '../Logo';
+import { MoonIcon, SunIcon } from './ThemeIcons';
 
 interface RouteItem {
   route: string;
@@ -63,7 +64,11 @@ export function Header({ routes, groupLinks = false }: HeaderProps) {
       <HeaderLinks>{renderLinks()}</HeaderLinks>
 
       <ThemeToggleButton onClick={toggleTheme} title={`Alternar para tema ${theme === 'light' ? 'escuro' : 'claro'}`}>
-        {theme === 'light' ? '🌙' : '☀️'}
+        {theme === 'light' ? (
+          <MoonIcon />
+        ) : (
+          <SunIcon />
+        )}
       </ThemeToggleButton>
 
       <HeaderBar>
