@@ -1,0 +1,48 @@
+on:
+  push:
+    branches:
+      - master
+
+name: 🚀 Deploy website on push
+jobs:
+  web-deploy:
+    name: 🎉 Deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: 🚚 Get latest code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+
+      - name: Install pnpm
+        run: npm i -g pnpm
+
+      - name: Install dependencies
+        run: pnpm i
+
+      - name: Build project
+        run: pnpm build
+
+      - name: Copy .htaccess to dist/
+        run: cp .htaccess dist/
+
+      - name: Update .htaccess with environment variable
+        run: |
+          printf "\nSetEnv PUBLIC_API_EMAIL_SERVICE ${PUBLIC_API_EMAIL_SERVICE}\n" >> dist/.htaccess
+        env:
+          PUBLIC_API_EMAIL_SERVICE: ${{ secrets.PUBLIC_API_EMAIL_SERVICE }}
+      
+      - name: Check dist folder
+        run: ls -la dist/
+
+      - name: 📂 Sync files
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_HOST }}
+          username: ${{ secrets.FTP_USER }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          local-dir: ./dist/
+          server-dir: public_html/research/

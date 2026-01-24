@@ -56,6 +56,39 @@ export const BarButton = styled.a`
     cursor: pointer;
 `;
 
+export const ThemeToggleButton = styled.button`
+    all: unset;
+    cursor: pointer;
+    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;
+    
+    font-size: 1.5rem;
+    background: ${(props) => props.theme.backgroundOffset};
+    color: ${(props) => props.theme.text};
+    
+    transition: all 0.2s ease;
+    
+    &:hover {
+        background: ${(props) => props.theme.primary};
+        color: ${(props) => props.theme.background};
+        transform: scale(1.1);
+    }
+    
+    &:active {
+        transform: scale(0.95);
+    }
+    
+    @media screen and (max-width: 900px){
+        margin-right: 1rem;
+    }
+`;
+
 export const HeaderBarLinks = styled(HeaderLinks)`
     display: flex;
     flex-direction: column;
