@@ -174,6 +174,9 @@ export function About() {
       <Timeline>
         {academicExperiences.map((experience) => {
           const originalData = findExperienceWithSkills(experience.title);
+          const skills = originalData && 'skills' in originalData && Array.isArray(originalData.skills) 
+            ? (originalData.skills as Array<{ id: string; name: string }>)
+            : null;
           return (
             <PointTime key={experience.content + experience.title}>
               <ExperienceYearRange>
@@ -184,19 +187,15 @@ export function About() {
               </ExperienceYearRange>
               <h2>{experience.title}</h2>
               <p>{experience.content}</p>
-              {originalData &&
-                'skills' in originalData &&
-                originalData.skills &&
-                Array.isArray(originalData.skills) &&
-                originalData.skills.length > 0 && (
-                  <ExperienceSkills>
-                    {originalData.skills.map((skill) => (
-                      <SkillTag key={skill.id} $small>
-                        {skill.name}
-                      </SkillTag>
-                    ))}
-                  </ExperienceSkills>
-                )}
+              {skills && skills.length > 0 && (
+                <ExperienceSkills>
+                  {skills.map((skill) => (
+                    <SkillTag key={skill.id} $small>
+                      {skill.name}
+                    </SkillTag>
+                  ))}
+                </ExperienceSkills>
+              )}
             </PointTime>
           );
         })}
@@ -206,6 +205,9 @@ export function About() {
       <Timeline>
         {professionalExperiencesConverted.map((experience) => {
           const originalData = findExperienceWithSkills(experience.title);
+          const skills = originalData && 'skills' in originalData && Array.isArray(originalData.skills) 
+            ? (originalData.skills as Array<{ id: string; name: string }>)
+            : null;
           return (
             <PointTime key={experience.content + experience.title}>
               <ExperienceYearRange>
@@ -216,19 +218,15 @@ export function About() {
               </ExperienceYearRange>
               <h2>{experience.title}</h2>
               <p>{experience.content}</p>
-              {originalData &&
-                'skills' in originalData &&
-                originalData.skills &&
-                Array.isArray(originalData.skills) &&
-                originalData.skills.length > 0 && (
-                  <ExperienceSkills>
-                    {originalData.skills.map((skill) => (
-                      <SkillTag key={skill.id} $small>
-                        {skill.name}
-                      </SkillTag>
-                    ))}
-                  </ExperienceSkills>
-                )}
+              {skills && skills.length > 0 && (
+                <ExperienceSkills>
+                  {skills.map((skill) => (
+                    <SkillTag key={skill.id} $small>
+                      {skill.name}
+                    </SkillTag>
+                  ))}
+                </ExperienceSkills>
+              )}
             </PointTime>
           );
         })}

@@ -26,7 +26,7 @@ interface HeaderProps {
   groupLinks?: boolean;
 }
 
-export function Header({ routes, groupLinks = false }: HeaderProps) {
+export function Header({ routes }: HeaderProps) {
 
   const [click, setClick] = useState(false);
   const { theme, toggleTheme } = useTheme();
