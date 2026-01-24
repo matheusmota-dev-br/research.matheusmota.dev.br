@@ -53,12 +53,12 @@ export const PageSubtitle = styled.p`
 export const PublicationsGrid = styled.div`
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-    gap: 1.5rem;
+    gap: 1rem;
     width: 100%;
 
     @media screen and (max-width: 768px) {
         grid-template-columns: 1fr;
-        gap: 1.25rem;
+        gap: 1rem;
     }
 
     @media screen and (min-width: 1200px) {
@@ -66,9 +66,11 @@ export const PublicationsGrid = styled.div`
     }
 `;
 
-export const PublicationCard = styled.div`
+export const PublicationCard = styled.div<{ $index: number }>`
     animation: ${fadeInUp} 0.6s ease-out;
     animation-fill-mode: both;
+    animation-delay: ${(props) => (props.$index * 0.1) + 0.1}s;
+    position: relative;
 
     /* Título maior para o subtítulo (que é o título da publicação) */
     h2 {
@@ -76,37 +78,43 @@ export const PublicationCard = styled.div`
         font-weight: 600 !important;
         line-height: 1.4 !important;
         color: ${(props) => props.theme.text} !important;
-        margin-bottom: 0.75rem;
+    }
+`;
+
+export const TitleWithYear = styled.div`
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 0.75rem;
+    margin-top: 0.5rem;
+
+    h2 {
+        flex: 1;
+        margin: 0 !important;
     }
 
-    /* Título do ano também maior */
-    h1 {
-        font-size: 2rem !important;
-        font-weight: 700 !important;
+    @media screen and (max-width: 500px) {
+        flex-direction: column;
+        gap: 0.5rem;
     }
+`;
 
-    &:nth-child(1) {
-        animation-delay: 0.1s;
-    }
+export const YearBadge = styled.div`
+    display: inline-block;
+    background: linear-gradient(135deg, ${(props) => props.theme.primary} 0%, ${(props) => props.theme.secondary} 100%);
+    color: white;
+    padding: 0.375rem 0.875rem;
+    border-radius: 20px;
+    font-size: 0.875rem;
+    font-weight: 700;
+    box-shadow: 0 2px 8px ${(props) => props.theme.primary}30;
+    flex-shrink: 0;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
 
-    &:nth-child(2) {
-        animation-delay: 0.2s;
-    }
-
-    &:nth-child(3) {
-        animation-delay: 0.3s;
-    }
-
-    &:nth-child(4) {
-        animation-delay: 0.4s;
-    }
-
-    &:nth-child(5) {
-        animation-delay: 0.5s;
-    }
-
-    &:nth-child(6) {
-        animation-delay: 0.6s;
+    &:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px ${(props) => props.theme.primary}40;
     }
 `;
 

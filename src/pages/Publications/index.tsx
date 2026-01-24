@@ -1,3 +1,4 @@
+import { useMemo } from 'react';
 import { Card } from '../../components/Card';
 import { PublicationProps, publications } from '../../data/publication';
 import { 
@@ -8,10 +9,21 @@ import {
   PublicationCard,
   PublicationMeta,
   MetaItem,
-  DOILink
+  DOILink,
+  YearBadge,
+  TitleWithYear
 } from './styled';
 
+function truncateText(text: string, maxLength: number = 300): string {
+  if (text.length <= maxLength) return text;
+  return text.substring(0, maxLength).trim() + '...';
+}
+
 export function Publications() {
+  const sortedPublications = useMemo(() => {
+    return [...publications].sort((a, b) => b.publicationYear - a.publicationYear);
+  }, []);
+
   return (
     <Container>
       <PageTitle>Publications</PageTitle>
@@ -19,12 +31,14 @@ export function Publications() {
         Academic publications and research contributions in computer science and engineering
       </PageSubtitle>
       <PublicationsGrid>
-        {publications.map((publication: PublicationProps) => (
-          <PublicationCard key={publication.doi}>
+        {sortedPublications.map((publication: PublicationProps, index: number) => (
+          <PublicationCard key={publication.doi} $index={index}>
             <Card.Root>
-              <Card.Title title={publication.publicationYear.toString()} />
-              <Card.Subtitle subtitle={publication.title} />
-              <Card.Content content={publication.abstract} />
+              <TitleWithYear>
+                <Card.Subtitle subtitle={publication.title} />
+                <YearBadge>{publication.publicationYear}</YearBadge>
+              </TitleWithYear>
+              <Card.Content content={truncateText(publication.abstract)} />
               <PublicationMeta>
                 <MetaItem>
                   <strong>Conference:</strong>

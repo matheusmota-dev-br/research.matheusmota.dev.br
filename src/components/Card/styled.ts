@@ -10,7 +10,7 @@ export const CardImageContainer = styled.img`
 `;
 
 export const CardRootContainer = styled.div`
-    width: 25rem;
+    width: 100%;
     min-height: 15rem;
     padding: 1.5rem;
 
@@ -52,10 +52,6 @@ export const CardRootContainer = styled.div`
         ${CardImageContainer} {
             transform: scale(1.05);
         }
-    }
-
-    @media screen and (max-width: 500px){
-        width: 100%;
     }
 `;
 
