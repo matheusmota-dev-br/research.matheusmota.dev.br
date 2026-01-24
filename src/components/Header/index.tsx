@@ -5,13 +5,16 @@ import {
   HeaderLinks,
   HeaderBarLinks,
   BarButton,
+  ThemeToggleButton,
 } from './styled';
 import { useState } from 'react';
 import { SITE } from '../../config';
+import { useTheme } from '../../contexts/ThemeContext';
 
 import BarIcon from '../../assets/bars.svg';
 import CloseIcon from '../../assets/close.svg';
 import { Logo } from '../Logo';
+import { MoonIcon, SunIcon } from './ThemeIcons';
 
 interface RouteItem {
   route: string;
@@ -23,9 +26,10 @@ interface HeaderProps {
   groupLinks?: boolean;
 }
 
-export function Header({ routes, groupLinks = false }: HeaderProps) {
+export function Header({ routes }: HeaderProps) {
 
   const [click, setClick] = useState(false);
+  const { theme, toggleTheme } = useTheme();
 
   const handleClick = () => {
     setClick(!click);
@@ -58,6 +62,14 @@ export function Header({ routes, groupLinks = false }: HeaderProps) {
       </NavLink>
       
       <HeaderLinks>{renderLinks()}</HeaderLinks>
+
+      <ThemeToggleButton onClick={toggleTheme} title={`Alternar para tema ${theme === 'light' ? 'escuro' : 'claro'}`}>
+        {theme === 'light' ? (
+          <MoonIcon />
+        ) : (
+          <SunIcon />
+        )}
+      </ThemeToggleButton>
 
       <HeaderBar>
         <BarButton onClick={handleClick}>

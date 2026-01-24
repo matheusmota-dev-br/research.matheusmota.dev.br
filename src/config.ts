@@ -1,6 +1,6 @@
 export const SITE = {
   title: 'MOTA, M. S. M',
-  subtitle: 'Academic Portal',
+  subtitle: 'Research Portal',
   author: {
     fullName: 'Matheus Silva Martins Mota',
     firstName: 'Matheus',
@@ -12,7 +12,7 @@ export const HOME = {
   firstText: SITE.author.firstName,
   secondText: SITE.author.lastName,
   phrase: {
-    text: '“Constant improvement is better than delayed perfection”',
-    author: 'Mark Tawain',
+    text: "Wherever your level of aspiration is, that's where you can be one day.",
+    author: 'Adilson Marques da Cunha',
   },
 };

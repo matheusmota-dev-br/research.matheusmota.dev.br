@@ -1,4 +1,4 @@
-import { Container } from './styled';
+import { Container, LogoImage, LogoContent } from './styled';
 
 interface LogoProps{
   title: string;
@@ -23,8 +23,11 @@ export function Logo({
 
   return (
     <Container>
-      <h1>{generatedTitle}</h1>
-      {showSubtitle && <p>{subtitle}</p>}
+      <LogoImage src="/ita-logo.png" alt="ITA Logo" />
+      <LogoContent>
+        <h1>{generatedTitle}</h1>
+        {showSubtitle && <p>{subtitle}</p>}
+      </LogoContent>
     </Container>
   );
 }

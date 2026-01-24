@@ -1,14 +1,10 @@
-import { ThemeProvider } from 'styled-components';
-
-import { defaultTheme } from './themes/default';
-import { GlobalStyle } from './global';
 import { ReactNode } from 'react';
+import { ThemeProvider } from '../contexts/ThemeContext';
 
 export function renderTheme (children: ReactNode) {
   return (
-    <ThemeProvider theme={defaultTheme}>
-        {children}
-        <GlobalStyle />
+    <ThemeProvider>
+      {children}
     </ThemeProvider>
   )
 };

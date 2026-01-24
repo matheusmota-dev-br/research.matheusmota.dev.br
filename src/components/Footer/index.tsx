@@ -14,7 +14,7 @@ export function Footer({ social = [] }: FooterProps) {
 
   return (
     <Container>
-      <p>@{year} Academic Portal for Personal Management</p>
+      <p>@{year} Research Portal for Personal Management</p>
       <SocialLinks>
         {social?.map((media) => (
           <a target="_blank" href={media.url} key={media.url} rel="noreferrer">
