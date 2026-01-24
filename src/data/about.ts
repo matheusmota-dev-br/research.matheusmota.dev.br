@@ -3,70 +3,562 @@ export const EnumExperienceType = {
   PROFESSIONAL: 'professional',
 };
 
+interface Skill {
+  id: string;
+  name: string;
+}
+
+interface BasicInfo {
+  name: string;
+  nickname: string;
+  skills: Skill[];
+  email: string;
+  phone: string;
+  job: string;
+  summary: string;
+  cv_link: string;
+}
+
+interface Phrase {
+  text: string;
+  author: string;
+}
+
+interface SocialLink {
+  title: string;
+  icon: string;
+  url: string;
+}
+
+interface Experience {
+  title: string;
+  sub_title: string;
+  years: string;
+  details: string;
+  skills: Skill[];
+}
+
+interface Education {
+  title: string;
+  sub_title: string;
+  years: string;
+  details: string;
+}
+
+interface Project {
+  image: {
+    src: string;
+    alt: string;
+  };
+  title: string;
+  type: string;
+  url: string;
+}
+
+interface ExperienceItem {
+  startYear: number;
+  endYear: number | null;
+  title: string;
+  content: string;
+  experienceType: string;
+}
+
+// Helper function to parse years string and extract start/end years
+function parseYears(years: string): { startYear: number; endYear: number | null } {
+  const currentYear = new Date().getFullYear();
+  const parts = years.split(' - ');
+  
+  if (parts.length === 2) {
+    const startPart = parts[0].trim();
+    const endPart = parts[1].trim();
+    
+    // Extract year from start (e.g., "Feb 2025" -> 2025)
+    const startMatch = startPart.match(/\d{4}/);
+    const startYear = startMatch ? parseInt(startMatch[0]) : currentYear;
+    
+    // Check if end is "Present" or extract year
+    let endYear: number | null = null;
+    if (endPart.toLowerCase() === 'present') {
+      endYear = null; // null means ongoing
+    } else {
+      const endMatch = endPart.match(/\d{4}/);
+      endYear = endMatch ? parseInt(endMatch[0]) : currentYear;
+    }
+    
+    return { startYear, endYear };
+  }
+  
+  // Fallback: try to extract a single year
+  const yearMatch = years.match(/\d{4}/);
+  const year = yearMatch ? parseInt(yearMatch[0]) : currentYear;
+  return { startYear: year, endYear: year };
+}
+
+// Convert education to experience format
+function educationToExperience(edu: Education): ExperienceItem {
+  const { startYear, endYear } = parseYears(edu.years);
+  return {
+    startYear,
+    endYear,
+    title: `${edu.title} - ${edu.sub_title}`,
+    content: edu.details || edu.sub_title,
+    experienceType: EnumExperienceType.ACADEMIC,
+  };
+}
+
+// Convert professional experience to experience format
+function experienceToExperience(exp: Experience): ExperienceItem {
+  const { startYear, endYear } = parseYears(exp.years);
+  return {
+    startYear,
+    endYear,
+    title: `${exp.title} - ${exp.sub_title}`,
+    content: exp.details || exp.sub_title,
+    experienceType: EnumExperienceType.PROFESSIONAL,
+  };
+}
+
+const basic: BasicInfo = {
+  name: 'Matheus Mota',
+  nickname: 'matheus1714',
+  skills: [
+    {
+      id: 'vue',
+      name: 'Vue3JS',
+    },
+    {
+      id: 'react',
+      name: 'React',
+    },
+    {
+      id: 'typescript',
+      name: 'Typescript',
+    },
+    {
+      id: 'node',
+      name: 'NodeJS',
+    },
+    {
+      id: 'nextjs',
+      name: 'NextJS',
+    },
+    {
+      id: 'nuxtjs',
+      name: 'NuxtJS',
+    },
+    {
+      id: 'nestjs',
+      name: 'NestJS',
+    },
+    {
+      id: 'postgresql',
+      name: 'PostgreSQL',
+    },
+    {
+      id: 'python',
+      name: 'Python',
+    },
+  ],
+  email: 'matheussilvamartins1714@gmail.com',
+  phone: '00000000000000',
+  job: 'Software Engineer',
+  summary:
+    "I am a **Master's student in Computer Science** at the **Aeronautics Technological Institute (ITA)**, with a **Bachelor's degree in Aerospace Engineering** (also from ITA) completed with honors. My academic journey has been marked by a strong focus on **Artificial Intelligence**, particularly in the classification of academic works, where I conduct research that bridges theoretical computer science with practical applications. My research interests span **machine learning**, **natural language processing**, and **data mining**, with a particular emphasis on developing intelligent systems for academic content analysis and classification. Throughout my master's program, I have completed specialized courses in **algorithms**, **data structures**, **artificial intelligence**, and **software engineering**, which have provided me with a solid theoretical foundation. My academic work is complemented by practical experience in software development, where I apply research methodologies to solve real-world problems. I am passionate about contributing to the advancement of knowledge in computer science through rigorous research, publication, and collaboration with the academic community.",
+  cv_link:
+    'https://docs.google.com/document/d/1vBahNPGMIn-GkLgDjp8yZt3GkKaROV6n4E9ZlSJuado',
+};
+
+const phrase: Phrase = {
+  text: "Wherever your level of aspiration is, that's where you can be one day.",
+  author: 'Adilson Marques da Cunha',
+};
+
+const social: SocialLink[] = [
+  {
+    title: 'Github',
+    icon: 'Github',
+    url: 'https://github.com/Matheus1714',
+  },
+  {
+    title: 'Linkedin',
+    icon: 'Linkedin',
+    url: 'https://www.linkedin.com/in/matheus-mota-44b21a17b/',
+  },
+  {
+    title: 'Instagram',
+    icon: 'Instagram',
+    url: 'https://www.instagram.com/matheus_mota1714/',
+  },
+  {
+    title: 'Medium',
+    icon: 'Medium',
+    url: 'https://medium.com/@matheus1714',
+  },
+];
+
+const experiencesData: Experience[] = [
+  {
+    title: 'Software Engineer',
+    sub_title: 'Maria Educação',
+    years: 'Feb 2025 - Present',
+    details: '',
+    skills: [
+      {
+        id: 'python',
+        name: 'Python',
+      },
+      {
+        id: 'django',
+        name: 'Django',
+      },
+      {
+        id: 'temporalio',
+        name: 'TemporalIO',
+      },
+      {
+        id: 'fastapi',
+        name: 'FastAPI',
+      },
+      {
+        id: 'docker',
+        name: 'Docker',
+      },
+      {
+        id: 'react',
+        name: 'React',
+      },
+      {
+        id: 'nextjs',
+        name: 'NextJS',
+      },
+      {
+        id: 'typescript',
+        name: 'Typescript',
+      },
+      {
+        id: 'postgresql',
+        name: 'PostgreSQL',
+      },
+      {
+        id: 'gcp',
+        name: 'Google Cloud Platform (GCP)',
+      },
+      {
+        id: 'flutter',
+        name: 'Flutter',
+      },
+      {
+        id: 'dart',
+        name: 'Dart',
+      },
+      {
+        id: 'drift',
+        name: 'Drift',
+      },
+    ],
+  },
+  {
+    title: 'Software Engineer',
+    sub_title: 'DEEP ESG',
+    years: 'Feb 2024 - Jan 2025',
+    details:
+      "I currently work on developing structural solutions for all of the company's products. Among the most relevant experiences, I highlight the implementation of login unification between products, allowing customers to access all services with a single account. This initiative enabled the adoption of Single Sign-On (SSO) and significantly simplified access management processes, providing a more integrated and efficient experience for users.",
+    skills: [
+      {
+        id: 'vue',
+        name: 'Vue3JS',
+      },
+      {
+        id: 'typescript',
+        name: 'Typescript',
+      },
+      {
+        id: 'node',
+        name: 'NodeJS',
+      },
+      {
+        id: 'nextjs',
+        name: 'NextJS',
+      },
+      {
+        id: 'nuxtjs',
+        name: 'NuxtJS',
+      },
+      {
+        id: 'nestjs',
+        name: 'NestJS',
+      },
+      {
+        id: 'postgresql',
+        name: 'PostgreSQL',
+      },
+      {
+        id: 'keycloak',
+        name: 'Keycloak',
+      },
+      {
+        id: 'gcp',
+        name: 'Google Cloud Platform (GCP)',
+      },
+    ],
+  },
+  {
+    title: 'Freelancer',
+    sub_title: 'Freelance',
+    years: 'Jan 2022 - Dec 2023',
+    details:
+      'Responsible for optimizing and developing automations for data extraction in legal platforms, including overcoming captchas, FTP transfers and table modeling. With refactorings that improved clarity and performance, I implemented structures that allowed the execution of multiple scripts on different platforms, resulting in more efficient and flexible automation.',
+    skills: [
+      {
+        id: 'python',
+        name: 'Python',
+      },
+      {
+        id: 'django',
+        name: 'Django',
+      },
+      {
+        id: 'selenium',
+        name: 'Selenium',
+      },
+      {
+        id: 'mss',
+        name: 'Microsoft SQL Server',
+      },
+    ],
+  },
+  {
+    title: 'Intern',
+    sub_title: 'ITA Space Center (CEI)',
+    years: 'Feb 2023 - Mar 2023',
+    details:
+      "During my internship, I worked on the planning and preliminary implementation of a Service-Oriented Architecture (SOA) focused on the integration of Ground Segment (GS) systems. This integration involved several components, such as antennas, simulators and IoT devices, ensuring greater interoperability and efficiency in the system's operation.",
+    skills: [
+      {
+        id: 'python',
+        name: 'Python',
+      },
+      {
+        id: 'javascript',
+        name: 'Javascript',
+      },
+      {
+        id: 'vb',
+        name: 'Virtual Box',
+      },
+      {
+        id: 'mqtt',
+        name: 'MQTT',
+      },
+      {
+        id: 'docker',
+        name: 'Docker',
+      },
+      {
+        id: 'sao',
+        name: 'SAO',
+      },
+    ],
+  },
+  {
+    title: 'Co-Founder',
+    sub_title: 'Business Application',
+    years: 'Mar 2021 - Sep 2021',
+    details:
+      'Initially, I worked on developing a Marketplace application using Flutter, Dart, and Firebase technologies. At the same time, I was responsible for planning user interface and experience (UI/UX) elements using Figma. Later, I gave training on creating applications using the same technologies, aimed at beginning university students. This training included the development of a song lyrics search engine project and practical tutorials on the language.',
+    skills: [
+      {
+        id: 'flutter',
+        name: 'Flutter',
+      },
+      {
+        id: 'dart',
+        name: 'Dart',
+      },
+      {
+        id: 'firebase',
+        name: 'Firebase',
+      },
+    ],
+  },
+  {
+    title: 'Intern',
+    sub_title: 'Quero Education',
+    years: 'Oct 2019 - Abr 2020',
+    details:
+      'I developed software for the Academic Center (CASD) with the goal of automating and optimizing manual processes, such as room scheduling, laundry scheduling, and issuing and monthly control of bills for students. In this project, I worked as a Full-Stack developer, covering everything from modeling and creating the database to developing an application aimed at students and a management interface for administrators.',
+    skills: [
+      {
+        id: 'react',
+        name: 'React',
+      },
+      {
+        id: 'react-native',
+        name: 'React Native',
+      },
+      {
+        id: 'material-ui',
+        name: 'Material UI',
+      },
+      {
+        id: 'flask',
+        name: 'Flask',
+      },
+      {
+        id: 'node',
+        name: 'NodeJS',
+      },
+    ],
+  },
+  {
+    title: 'Full-stack Developer',
+    sub_title: 'ITA Junior',
+    years: 'Sep 2018 - Oct 2019',
+    details:
+      'I was responsible for several internal projects within the company, including the development of a customized ERP for a psychiatric hospital. Due to the scale of the project, the process flowcharts, the database and some interfaces were delivered for the team to continue. At the same time, I taught classes to new members, covering basic and advanced concepts of web development. During this period, I also participated in ENEJ 2019, where I had the opportunity to expand my network of contacts through networking with students from other universities.',
+    skills: [
+      {
+        id: 'html',
+        name: 'HTML',
+      },
+      {
+        id: 'css',
+        name: 'CSS',
+      },
+      {
+        id: 'javascript',
+        name: 'Javascript',
+      },
+      {
+        id: 'node',
+        name: 'NodeJS',
+      },
+      {
+        id: 'reactjs',
+        name: 'ReactJS',
+      },
+      {
+        id: 'sqlserver',
+        name: 'SQLServer',
+      },
+    ],
+  },
+];
+
+const educationData: Education[] = [
+  {
+    title: 'Master in Computer Science',
+    sub_title: 'Aeronautics Technological Institute (ITA)',
+    years: 'Aug 2023 - Dec 2025',
+    details:
+      'Conducted research in Artificial Intelligence (AI) focused on the classification of academic works. During this period, completed multiple specialized courses in algorithms, data structures, and AI.',
+  },
+  {
+    title: 'Bachelor of Aerospace Engineering',
+    sub_title: 'Aeronautics Technological Institute (ITA)',
+    years: 'Jan 2018 - Dec 2023',
+    details:
+      'Graduated with honors in Computer Science, with foundation in software development, data structures, algorithms, and systems engineering. Gained hands-on experience through diverse academic projects and internships at  tech companies, showcasing a commitment to innovation and excellence in technology.',
+  },
+];
+
+const projects: Project[] = [
+  {
+    image: {
+      src: '/projects/google-docs-clone.png',
+      alt: '',
+    },
+    title: 'Google Docs Clone',
+    type: 'Website',
+    url: 'https://github.com/Matheus1714/google-docs-clone',
+  },
+  {
+    image: {
+      src: '/projects/barber-store.png',
+      alt: '',
+    },
+    title: 'Barber Store',
+    type: 'Website',
+    url: 'https://github.com/Matheus1714/monorepo-barber-store',
+  },
+  {
+    image: {
+      src: '/projects/summary-financial-transaction.png',
+      alt: '',
+    },
+    title: 'Summary Finantial Transaction',
+    type: 'Website',
+    url: 'https://github.com/Matheus1714/summary-financial-transctions-app',
+  },
+  {
+    image: {
+      src: '/projects/url-shortner.png',
+      alt: '',
+    },
+    title: 'URL Shortener',
+    type: 'Website',
+    url: 'https://github.com/Matheus1714/url-shortener-web',
+  },
+  {
+    image: {
+      src: '/projects/daily-diet-api.png',
+      alt: '',
+    },
+    title: 'Daily Diet (API)',
+    type: 'Api',
+    url: 'https://github.com/Matheus1714/daily-diet-api',
+  },
+  {
+    image: {
+      src: '/projects/english-blog.png',
+      alt: '',
+    },
+    title: 'English Blog',
+    type: 'Website',
+    url: 'https://github.com/Matheus1714/english-study-website',
+  },
+  {
+    image: {
+      src: '/projects/speaking-api.png',
+      alt: '',
+    },
+    title: 'Speaking AI (Web)',
+    type: 'Website',
+    url: 'https://github.com/Matheus1714/speaking-ai-web',
+  },
+  {
+    image: {
+      src: '/projects/ask-sql.png',
+      alt: '',
+    },
+    title: 'Translate SQL with AI',
+    type: 'Website',
+    url: 'https://github.com/Matheus1714/translate-sql-with-ai',
+  },
+];
+
+// Convert education and experiences to the format expected by the About page
+const allExperiences: ExperienceItem[] = [
+  ...educationData.map(educationToExperience),
+  ...experiencesData.map(experienceToExperience),
+];
+
 export const about = {
-  name: 'Matheus Silva Martins Mota',
+  // Legacy fields for compatibility with existing components (About page)
+  name: basic.name,
   scientificName: 'Mota, M. S. M.',
   imgProfile: {
     url: '/profile.jpeg',
     alt: 'profile image',
   },
-  description:
-    "I am a highly motivated individual with a **Bachelor's degree in Aerospace Engineering** with **Honors from Aeronautics Technological Institute (ITA)**, currently pursuing a **Master's degree in Computer Science** at the same institute. My academic journey has equipped me with a strong foundation in aerospace engineering and a comprehensive understanding of computer science. My technical expertise extends to web development, where I focus on **JavaScript (TypeScript, React, React Native, Node)**, **Python (Flask, Django)**, and other frameworks such as **Laravel** and **Flutter**. During my professional experience as a **Freelancer at Hastings Informática**, I developed proficiency in Python, Selenium, Django, SQL Server Management Studio (SSMS), Docker, and Azure Git, enhancing my skills in web scraping and data extraction. As a **Collaborating Researcher** at **Aeronautics Technological Institute (ITA)**, I contributed to user experience modeling using Laravel and PostgreSQL, showcasing my versatility in front-end development. Additionally, my role as a Developer at Quero Educação and ITA Júnior, among other positions, has provided me with extensive experience in application development, interface design, and training. With a solid background in aerospace engineering and a focus on computer science, I am well-equipped for opportunities in the IT market, particularly in web development, where I bring a wealth of practical skills and a commitment to delivering innovative solutions.",
-  experiences: [
-    {
-      startYear: 2018,
-      endYear: 2023,
-      title: 'Aerospace Engineering',
-      content: 'Aeronautics Technological Institute (ITA)',
-      experienceType: EnumExperienceType.ACADEMIC,
-    },
-    {
-      startYear: 2022,
-      endYear: 2024,
-      title: 'Master in Computer Science',
-      content: 'Aeronautics Technological Institute (ITA)',
-      experienceType: EnumExperienceType.ACADEMIC,
-    },
-    // ----------------------------------------------------------
-    {
-      startYear: 2022,
-      endYear: 2023,
-      title: 'Hastings Informática (Analyst developer)',
-      content:
-        'Service provider responsible for developing routines for data extraction (Web Scraping) on legal websites. During this period, I used Python, Selenium and Django, SQL Server Management Studio (SSMS), Docker and Azure Git to implement and improve these systems.',
-      experienceType: EnumExperienceType.PROFESSIONAL,
-    },
-    {
-      startYear: 2022,
-      endYear: 2023,
-      title: 'Aeronautics Technological Institute (Collaborating Researcher)',
-      content:
-        'I worked as an application developer, dedicating myself to modeling user experience. I developed Front-end skills using Laravel, and used the PostgreSQL database. Additionally, I took responsibility for developing user access models, as well as user experience.',
-      experienceType: EnumExperienceType.PROFESSIONAL,
-    },
-    {
-      startYear: 2021,
-      endYear: 2021,
-      title: 'Business Application (Co-Founder)',
-      content:
-        'At first, I played a role in developing a Marketplace application, using Flutter and Firebase technologies. At the same time, I took responsibility for planning the user interfaces, using the Figma platform to create the layouts. Later, I became responsible for providing training on the use of Flutter in various applications.',
-      experienceType: EnumExperienceType.PROFESSIONAL,
-    },
-    {
-      startYear: 2019,
-      endYear: 2020,
-      title: 'Quero Education (Intern)',
-      content:
-        'Intern in charge of implementing an application covering web and mobile versions. I played a role in the development, ranging from modeling the database to creating interfaces for both platforms, in addition to creating an intermediate API to facilitate communication between the systems. I used JavaScript technologies, such as React and React Native, and Python, with Flask.',
-      experienceType: EnumExperienceType.PROFESSIONAL,
-    },
-    {
-      startYear: 2018,
-      endYear: 2019,
-      title: 'ITA Júnior (Web Developer)',
-      content:
-        'I played the role of Web Application Developer in several Junior Company projects, working on Front-end development through the use of JavaScript Frameworks, such as Bootstrap and Material UI.',
-      experienceType: EnumExperienceType.PROFESSIONAL,
-    },
-  ],
+  description: basic.summary,
+  experiences: allExperiences,
+  
+  // New structured data matching JSON structure
+  basic,
+  phrase,
+  social,
+  professionalExperiences: experiencesData,
+  education: educationData,
+  projects,
 };
