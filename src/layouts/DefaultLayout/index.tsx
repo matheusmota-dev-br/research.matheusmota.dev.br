@@ -13,6 +13,7 @@ export function Layout() {
     { route: '/publications', title: 'Publications' },
     { route: '/presentations', title: 'Presentations' },
     { route: '/projects', title: 'Projects' },
+    { route: '/courses', title: 'Courses' },
   ];
 
   return (
