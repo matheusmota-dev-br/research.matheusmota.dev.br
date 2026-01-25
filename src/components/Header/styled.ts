@@ -93,14 +93,11 @@ export const BarButton = styled.a`
     img {
         width: 1.5rem;
         height: 1.5rem;
-        filter: ${(props) => props.theme.background === '#111827' ? 'invert(1)' : 'none'};
+        filter: brightness(0) invert(1);
         transition: transform 0.2s ease;
     }
 
     &:hover {
-        background: ${(props) => props.theme.primary};
-        transform: scale(1.05);
-
         img {
             transform: rotate(90deg);
         }
@@ -190,6 +187,7 @@ export const HeaderBarLinks = styled(HeaderLinks)`
     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
     gap: 1rem;
     min-width: 200px;
+    z-index: 1000;
     animation: slideDown 0.3s ease-out;
 
     @keyframes slideDown {
