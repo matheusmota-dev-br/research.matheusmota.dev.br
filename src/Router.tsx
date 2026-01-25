@@ -6,6 +6,8 @@ import { Home } from './pages/Home';
 import { NotFound } from './pages/NotFound';
 import { Publications } from './pages/Publications';
 import { Presentations } from './pages/Presentations';
+import { Projects } from './pages/Projects';
+import { Courses } from './pages/Courses';
 
 export function Router() {
   return (
@@ -16,6 +18,8 @@ export function Router() {
         <Route path="/publications" element={<Publications />} />
         <Route path="/presentations" element={<Presentations />} />
         <Route path="/presentations/:id" element={<Presentations />} />
+        <Route path="/projects" element={<Projects />} />
+        <Route path="/courses" element={<Courses />} />
         <Route path="*" element={<NotFound />} />
       </Route>
     </Routes>
