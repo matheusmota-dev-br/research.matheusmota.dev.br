@@ -9,7 +9,7 @@ export const social = [
     alt: 'lattes icon',
   },
   {
-    url: 'https://github.com/Matheus1714',
+    url: 'https://github.com/matheusmota-dev-br',
     iconPath: GithubIcon,
     alt: 'github icon',
   },

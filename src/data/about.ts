@@ -120,7 +120,7 @@ function experienceToExperience(exp: Experience): ExperienceItem {
 
 const basic: BasicInfo = {
   name: 'Matheus Mota',
-  nickname: 'matheus1714',
+  nickname: 'matheusmota-dev-br',
   skills: [
     {
       id: 'vue',
@@ -177,7 +177,7 @@ const social: SocialLink[] = [
   {
     title: 'Github',
     icon: 'Github',
-    url: 'https://github.com/Matheus1714',
+    url: 'https://github.com/matheusmota-dev-br',
   },
   {
     title: 'Linkedin',
@@ -192,7 +192,7 @@ const social: SocialLink[] = [
   {
     title: 'Medium',
     icon: 'Medium',
-    url: 'https://medium.com/@matheus1714',
+    url: 'https://medium.com/@matheusmota-dev-br',
   },
 ];
 
@@ -470,7 +470,7 @@ const projects: Project[] = [
     },
     title: 'Google Docs Clone',
     type: 'Website',
-    url: 'https://github.com/Matheus1714/google-docs-clone',
+    url: 'https://github.com/matheusmota-dev-br/google-docs-clone',
   },
   {
     image: {
@@ -479,7 +479,7 @@ const projects: Project[] = [
     },
     title: 'Barber Store',
     type: 'Website',
-    url: 'https://github.com/Matheus1714/monorepo-barber-store',
+    url: 'https://github.com/matheusmota-dev-br/monorepo-barber-store',
   },
   {
     image: {
@@ -488,7 +488,7 @@ const projects: Project[] = [
     },
     title: 'Summary Finantial Transaction',
     type: 'Website',
-    url: 'https://github.com/Matheus1714/summary-financial-transctions-app',
+    url: 'https://github.com/matheusmota-dev-br/summary-financial-transctions-app',
   },
   {
     image: {
@@ -497,7 +497,7 @@ const projects: Project[] = [
     },
     title: 'URL Shortener',
     type: 'Website',
-    url: 'https://github.com/Matheus1714/url-shortener-web',
+    url: 'https://github.com/matheusmota-dev-br/url-shortener-web',
   },
   {
     image: {
@@ -506,7 +506,7 @@ const projects: Project[] = [
     },
     title: 'Daily Diet (API)',
     type: 'Api',
-    url: 'https://github.com/Matheus1714/daily-diet-api',
+    url: 'https://github.com/matheusmota-dev-br/daily-diet-api',
   },
   {
     image: {
@@ -515,7 +515,7 @@ const projects: Project[] = [
     },
     title: 'English Blog',
     type: 'Website',
-    url: 'https://github.com/Matheus1714/english-study-website',
+    url: 'https://github.com/matheusmota-dev-br/english-study-website',
   },
   {
     image: {
@@ -524,7 +524,7 @@ const projects: Project[] = [
     },
     title: 'Speaking AI (Web)',
     type: 'Website',
-    url: 'https://github.com/Matheus1714/speaking-ai-web',
+    url: 'https://github.com/matheusmota-dev-br/speaking-ai-web',
   },
   {
     image: {
@@ -533,7 +533,7 @@ const projects: Project[] = [
     },
     title: 'Translate SQL with AI',
     type: 'Website',
-    url: 'https://github.com/Matheus1714/translate-sql-with-ai',
+    url: 'https://github.com/matheusmota-dev-br/translate-sql-with-ai',
   },
 ];
 
